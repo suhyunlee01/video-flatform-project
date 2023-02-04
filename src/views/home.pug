@@ -1,0 +1,9 @@
+extends base.pug
+include mixins/video
+
+block content
+    h2 Welcome, Here You Will See Birds Around The World.
+    each info in videos
+        +video(info)
+    else
+        li sorry nothing found.

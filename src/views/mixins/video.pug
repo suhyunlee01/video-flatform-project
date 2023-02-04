@@ -1,0 +1,8 @@
+mixin video(videoInfo)
+        div
+            h4=videoInfo.title
+            ui
+                li #{videoInfo.rating}/5.
+                li #{videoInfo.comment} comments.
+                li #{videoInfo.createdAt}.
+                li #{videoInfo.views} views.
