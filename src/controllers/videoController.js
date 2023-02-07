@@ -1,36 +1,32 @@
-export const Recommended = (req, res) =>{
-    const videos = [
-        {
-            title: "birb #1",
-            rating: 5,
-            comment: 2,
-            createdAt: "1 min ago",
-            views: 5000,
-            id:1,
-        },
-        {
-            title: "birb #2",
-            rating: 4,
-            comment: 5,
-            createdAt: "1 min ago",
-            views: 5000,
-            id:1,
-        },
-        {
-            title: "birb #3",
-            rating: 3,
-            comment: 6,
-            createdAt: "1 min ago",
-            views: 5000,
-            id:1,
-        }
-    ];
-    res.render("home", { pageTitle: "Home", videos });
-}
+import Video from "../models/Video"; //Video라는 모델을 import 해줌으로써 video.find() , video.deletOne() 등등등을 실행시킬 수 있게 되었다.
+
+export const home = async(req, res) => {
+        const videos = await Video.find({});
+        return res.render("home", { pageTitle: "Home", videos});
+};
+
 export const search =(req, res) => res.send("Search Video");
 
-export const edit = (req, res) => res.render("edit");
+export const getEdit = (req, res) => {
+    const id = req.params.id;
+    return res.render("edit",{pageTitle: `Edit`});
+};
+export const postEdit = (req, res) =>{
+    const id = req.params.id;
+    const title = req.body.title; //form의 name을 가져오는 것임!
+    return res.redirect(`/videos/${id}`);
+};
 export const deleteVideo =(req, res) => res.send("remove Video");
 export const upload =(req, res) => res.send("upload Video");
-export const seeVideo = (req, res) => res.render("watch");
+export const seeVideo = (req, res) =>{
+    const id = req.params.id;
+    return res.render("watch", { pageTitle: `Watch`});
+};
 
+export const getUpload = (req, res) =>{
+    res.render("upload",{pageTitle: "Upload"})
+};
+export const postUpload = (req, res) =>{
+    const title = req.body.upload;
+    res.redirect("/")
+};
