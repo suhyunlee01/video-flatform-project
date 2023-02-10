@@ -18,9 +18,10 @@ export const postEdit = (req, res) =>{
 };
 export const deleteVideo =(req, res) => res.send("remove Video");
 export const upload =(req, res) => res.send("upload Video");
-export const seeVideo = (req, res) =>{
+export const seeVideo = async (req, res) =>{
     const id = req.params.id;
-    return res.render("watch", { pageTitle: `Watch`});
+    const video = await Video.findById(id)
+    return res.render("watch", { pageTitle: video.title , video});
 };
 
 export const getUpload = (req, res) =>{
